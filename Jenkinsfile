@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = "umutcoskun/html-web-app"
         DOCKER_TAG = "v1.0"
-        DOCKER_CREDENTIALS = "dockerhub-credentials-id" 
     }
 
     stages {
@@ -27,10 +26,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                        sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    }
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
                 }
             }
         }
