@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
-        DOCKER_CREDENTIALS = "dockerhub-credentials-id"
+        DOCKER_CREDENTIALS = "dockerhub" 
     }
 
     stages {
@@ -21,6 +21,15 @@ pipeline {
             steps {
                 script {
                     sh "docker pull ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                }
+            }
+        }
+        
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl apply -f services.yaml"
                 }
             }
         }
