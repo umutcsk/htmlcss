@@ -5,6 +5,7 @@ pipeline {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
         DOCKER_CREDENTIALS = "dockerhub"
+        SONARQUBE_SCANNER = "/path/to/sonar-scanner/bin/sonar-scanner"
     }
 
     stages {
@@ -30,9 +31,7 @@ pipeline {
             steps {
                 script {
                     echo "Running SonarQube analysis..."
-                    withSonarQubeEnv('jenkins-sonar') { 
-                        sh "mvn clean install sonar:sonar -Dsonar.projectKey=htmlcss"
-                    }
+                    sh "${SONARQUBE_SCANNER} -Dsonar.projectKey=htmlcss"
                 }
             }
         }
