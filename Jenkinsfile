@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "umutcoskun/html-web-app"
         DOCKER_TAG = "v1.0"
-        DOCKER_CREDENTIALS = "dockerhub-credentials-id" 
+        DOCKER_CREDENTIALS = "dockerhub" 
         SONARQUBE_SERVER = "sonarqubejenkins" 
     }
 
