@@ -8,7 +8,7 @@ pipeline {
     }
 
     tools {
-        sonarQube 'sonarqube'  // Burada, Jenkins'te tanımlı olan SonarQube Scanner'ın adı
+        sonarRunner 'sonarqube'  
     }
 
     stages {
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     echo "Running SonarQube analysis..."
-                    withSonarQubeEnv('sonarqube') {  // 'sonarqube' burada SonarQube yapılandırmanızın adı
+                    withSonarQubeEnv('sonarqube') {  
                         sh "sonar-scanner -Dsonar.projectKey=htmlcss"
                     }
                 }
