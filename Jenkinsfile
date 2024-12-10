@@ -5,8 +5,6 @@ pipeline {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
         DOCKER_CREDENTIALS = "dockerhub"
-        SONARQUBE_SERVER = "sonarqubejenkins"
-        SONAR_SCANNER_PATH = "/opt/sonar-scanner/bin/sonar-scanner" 
     }
 
     stages {
@@ -28,6 +26,17 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    echo "Running SonarQube analysis..."
+                    withSonarQubeEnv('jenkins-sonar') { 
+                        sh "mvn clean install sonar:sonar -Dsonar.projectKey=my_project_key"
+                    }
+                }
+            }
+        }
+
         stage('Push Docker Image') {
             steps {
                 script {
@@ -40,19 +49,11 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('Wait for SonarQube Quality Gate') {
             steps {
-                withCredentials([string(credentialsId: 'SONARQUBE_TOKEN', variable: 'SONARQUBE_TOKEN')]) {
-                    script {
-                        echo "Running SonarQube analysis..."
-                        sh """
-                        ${SONAR_SCANNER_PATH} \
-                            -Dsonar.projectKey=html-web-app \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=http://your-sonarqube-server \
-                            -Dsonar.login=${SONARQUBE_TOKEN}
-                        """
-                    }
+                script {
+                    echo "Waiting for SonarQube Quality Gate..."
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
