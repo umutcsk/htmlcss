@@ -42,15 +42,15 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    echo "Running SonarQube analysis..."
-                    withSonarQubeEnv(env.SONARQUBE_SERVER) {
+                withCredentials([string(credentialsId: 'SONARQUBE_TOKEN', variable: 'SONARQUBE_TOKEN')]) {
+                    script {
+                        echo "Running SonarQube analysis..."
                         sh """
                         ${SONAR_SCANNER_PATH} \
                             -Dsonar.projectKey=html-web-app \
                             -Dsonar.sources=. \
-                            -Dsonar.host.url=$SONAR_HOST_URL \
-                            -Dsonar.login=$SONARQUBE_TOKEN  
+                            -Dsonar.host.url=http://your-sonarqube-server \
+                            -Dsonar.login=${SONARQUBE_TOKEN}
                         """
                     }
                 }
