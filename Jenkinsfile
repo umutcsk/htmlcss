@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "umutcoskun/html-web-app"
+        DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
         DOCKER_CREDENTIALS = "dockerhub" 
         SONARQUBE_SERVER = "sonarqubejenkins" 
