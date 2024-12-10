@@ -31,9 +31,7 @@ pipeline {
                 script {
                     echo "Running SonarQube analysis..."
                     withSonarQubeEnv('jenkins-sonar') { 
-                        withMaven(maven: 'Maven 3') { 
-                            sh "mvn clean install sonar:sonar -Dsonar.projectKey=htmlcss"
-                        }
+                        sh "mvn clean install sonar:sonar -Dsonar.projectKey=htmlcss"
                     }
                 }
             }
