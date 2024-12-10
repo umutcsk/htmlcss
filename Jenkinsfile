@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
         DOCKER_CREDENTIALS = "dockerhub" 
-        SONARQUBE_SERVER = "sonarqubejenkins" 
+        SONARQUBE_SERVER = "sonarqubejenkins"  
     }
 
     stages {
@@ -49,12 +49,11 @@ pipeline {
                             -Dsonar.projectKey=html-web-app \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=$SONAR_HOST_URL \
-                            -Dsonar.login=$SONAR_AUTH_TOKEN
+                            -Dsonar.login=$SONARQUBE_TOKEN  // Token, Jenkins credentials'tan alınıyor
                         '''
                     }
                 }
             }
         }
     }
-
 }
