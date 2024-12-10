@@ -4,8 +4,9 @@ pipeline {
     environment {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
-        DOCKER_CREDENTIALS = "dockerhub" 
-        SONARQUBE_SERVER = "sonarqubejenkins"  
+        DOCKER_CREDENTIALS = "dockerhub"
+        SONARQUBE_SERVER = "sonarqubejenkins"
+        SONAR_SCANNER_PATH = "/opt/sonar-scanner/bin/sonar-scanner" 
     }
 
     stages {
@@ -44,13 +45,13 @@ pipeline {
                 script {
                     echo "Running SonarQube analysis..."
                     withSonarQubeEnv(env.SONARQUBE_SERVER) {
-                        sh '''
-                        sonar-scanner \
+                        sh """
+                        ${SONAR_SCANNER_PATH} \
                             -Dsonar.projectKey=html-web-app \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=$SONAR_HOST_URL \
                             -Dsonar.login=$SONARQUBE_TOKEN  
-                        '''
+                        """
                     }
                 }
             }
