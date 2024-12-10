@@ -5,7 +5,10 @@ pipeline {
         DOCKER_IMAGE = "umutcskn681/html-web-app"
         DOCKER_TAG = "v1.0"
         DOCKER_CREDENTIALS = "dockerhub"
-        SONARQUBE_SCANNER = "/path/to/sonar-scanner/bin/sonar-scanner"
+    }
+
+    tools {
+        sonarQube 'sonarqube'  // Burada, Jenkins'te tanımlı olan SonarQube Scanner'ın adı
     }
 
     stages {
@@ -31,7 +34,9 @@ pipeline {
             steps {
                 script {
                     echo "Running SonarQube analysis..."
-                    sh "${SONARQUBE_SCANNER} -Dsonar.projectKey=htmlcss"
+                    withSonarQubeEnv('sonarqube') {  // 'sonarqube' burada SonarQube yapılandırmanızın adı
+                        sh "sonar-scanner -Dsonar.projectKey=htmlcss"
+                    }
                 }
             }
         }
