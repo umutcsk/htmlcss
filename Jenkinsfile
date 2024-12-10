@@ -7,10 +7,6 @@ pipeline {
         DOCKER_CREDENTIALS = "dockerhub"
     }
 
-    tools {
-        sonarRunner 'sonarqube'  
-    }
-
     stages {
         stage('Pull Docker Image') {
             steps {
