@@ -49,7 +49,7 @@ pipeline {
                             -Dsonar.projectKey=html-web-app \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=$SONAR_HOST_URL \
-                            -Dsonar.login=$SONARQUBE_TOKEN  // Token, Jenkins credentials'tan alınıyor
+                            -Dsonar.login=$SONARQUBE_TOKEN  
                         '''
                     }
                 }
