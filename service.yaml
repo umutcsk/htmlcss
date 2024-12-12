@@ -4,9 +4,10 @@ metadata:
   name: web-app-service
 spec:
   selector:
-    app: web-app  
+    app: web-app
   ports:
-    - protocol: TCP
-      port: 80  
-      targetPort: 80 
-  type: LoadBalancer 
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30000
+  type: NodePort

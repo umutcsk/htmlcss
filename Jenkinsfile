@@ -55,7 +55,7 @@ pipeline {
                 script {
                     echo "Applying Kubernetes deployment and service..."
                     sh "kubectl apply -f deployment.yaml"
-                    sh "kubectl apply -f services.yaml"
+                    sh "kubectl apply -f service.yaml"
                 }
             }
         }
