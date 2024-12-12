@@ -8,7 +8,7 @@ pipeline {
         SONARQUBE_CREDENTIALS = "jenkins-sonar"
     }
 
-
+    stages {
         stage('Run SonarQube Analysis') {
             environment {
                 scannerHome = tool 'jenkins-sonar'
